@@ -1,5 +1,7 @@
 package cipher;
 
+import java.io.*;
+
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static java.lang.Character.toLowerCase;
@@ -11,11 +13,9 @@ public class ROT13  {
     ROT13(Character cs, Character cf) {
         shift = alphabet.indexOf(cf) - alphabet.indexOf(cs);
     }
-
     ROT13() {
         shift = 13;
     }
-
 
     public String crypt(String text) throws UnsupportedOperationException {
         StringBuilder crypt = new StringBuilder();
@@ -33,8 +33,37 @@ public class ROT13  {
         return crypt.toString();
     }
 
-    public String encrypt(String text) {
-        return text;
+    public void encrypt(String text) throws FileNotFoundException, UnsupportedEncodingException {
+
+
+
+    }
+
+    public String readFile(String fileName) {
+        String fileContents;
+        try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            fileContents = sb.toString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileContents;
+    }
+
+    public void setEncryptedTextToFile(String textToSet, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+        String[] allLines = textToSet.split("\n");
+        for (String str : allLines) {
+            writer.println(str);
+        }
+        writer.close();
     }
 
     public String decrypt(String text) {

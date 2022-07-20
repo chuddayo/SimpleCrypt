@@ -2,6 +2,9 @@ package cipher;
 
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+
 import static org.junit.Assert.*;
 
 public class ROT13Test {
@@ -86,5 +89,15 @@ public class ROT13Test {
         // Then
         assertEquals(actual, Q1);
     }
+    @Test
+    public void encryptTest() {
+        ROT13 cipher = new ROT13();
+        System.out.println(cipher.readFile("sonnet18.txt"));
+    }
 
+    @Test
+    public void setEncryptedTextToFileTest() throws FileNotFoundException, UnsupportedEncodingException {
+        ROT13 cipher = new ROT13();
+        cipher.setEncryptedTextToFile(cipher.crypt(cipher.readFile("sonnet18.enc")), "sonnet18.enc");
+    }
 }
