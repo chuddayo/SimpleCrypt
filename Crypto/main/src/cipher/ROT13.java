@@ -33,6 +33,11 @@ public class ROT13  {
         return crypt.toString();
     }
 
+    public String caesarShift(String stringToEncrypt) {
+        shift = 3;
+        return crypt(stringToEncrypt);
+    }
+
     public void encrypt(String text) throws FileNotFoundException, UnsupportedEncodingException {
 
 
@@ -74,5 +79,4 @@ public class ROT13  {
         int rotation = s.indexOf(c);
         return s.substring(rotation) + s.substring(0, rotation);
     }
-
 }
